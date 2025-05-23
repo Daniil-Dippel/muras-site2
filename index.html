@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muras — Наследие кыргызов</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2c7a1;
+      color: #3b1d13;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #5c2d1f;
+      color: white;
+      padding: 15px 30px;
+      flex-wrap: wrap;
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+      margin-right: 15px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+      transition: opacity 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 0.7;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    .intro p {
+      text-align: center;
+      font-size: 1.2rem;
+      animation: fadeIn 1s ease;
+    }
+
+    .map-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      height: 600px;
+      margin: auto;
+      animation: fadeInUp 1s ease;
+    }
+
+    .region-img {
+      position: absolute;
+      cursor: pointer;
+      transition: transform 0.3s, filter 0.3s;
+    }
+
+    .region-img:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+      z-index: 10;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      width: 280px;
+      padding: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #8b4e36;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      background: #5c2d1f;
+    }
+
+    footer {
+      background: #5c2d1f;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        width: 100%;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        margin-top: 10px;
+      }
+
+      .map-wrapper {
+        height: 400px;
+      }
+    }
+
+    .map-wrapper {
+      position: relative;
+      max-width: 1000px;
+      width: 100%;
+      margin: auto;
+    }
+
+    .map-base {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .region-img {
+      position: absolute;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .region-img:hover {
+      transform: scale(1.05);
+      z-index: 2;
+    }
+
+    /* Позиции подбираются по карте "53c271..." которую ты прислал — вот пример: */
+    .region-talas {
+      top: 30px;
+      left: 50px;
+      width: 110px;
+    }
+
+    .region-chuy {
+      top: 50px;
+      left: 150px;
+      width: 110px;
+    }
+
+    .region-issyk {
+      top: 60px;
+      left: 290px;
+      width: 160px;
+    }
+
+    .region-naryn {
+      top: 130px;
+      left: 210px;
+      width: 120px;
+    }
+
+    .region-jalal {
+      top: 100px;
+      left: 100px;
+      width: 150px;
+    }
+
+    .region-osh {
+      top: 230px;
+      left: 140px;
+      width: 180px;
+    }
+
+    .region-batken {
+      top: 230px;
+      left: 40px;
+      width: 140px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo-title">
+      <img src="assets/images/logo.jpg" alt="Muras" class="logo" />
+      <h1>Muras</h1>
+    </div>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="history.html">История</a>
+      <a href="#map">Карта</a>
+      <a href="region.html?region=Ош">Артефакты</a>
+    </nav>
+  </header>
+
+  <section class="intro">
+    <h2>Цифровой музей кыргызской культуры</h2>
+    <p>
+      Добро пожаловать в «Muras» — интерактивный цифровой музей, где артефакты, история и культура кыргызского народа
+      оживают с помощью технологий.
+    </p>
+  </section>
+
+      <section class="map-section">
+        <div class="map-wrapper" onclick="location.href='region.html'">
+          <img src="assets/images/map.jpg" alt="Карта Кыргызстана"
+            style="width: 100%; border-radius: 12px; cursor: pointer;" />
+        </div>
+  </section>
+
+  <section class="artifacts">
+    <h2>Артефакты по регионам</h2>
+    <div class="card-container" id="artifact-cards">
+      <!-- Динамически подставляется из JSON -->
+    </div>
+  </section>
+
+  <section class="articles">
+    <h2>Последние статьи</h2>
+    <ul>
+      <li><a href="#">История Манаса</a></li>
+      <li><a href="#">Национальные головные уборы кыргызов</a></li>
+    </ul>
+    <a href="history.html" class="btn">Перейти к истории кыргызов</a>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Muras. Все права защищены.</p>
+  </footer>
+
+  <script>
+    function openRegion(name) {
+      window.location.href = `region.html?region=${encodeURIComponent(name)}`;
+    }
+
+    fetch('js/data.json')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('artifact-cards');
+        const shownRegions = new Set();
+
+        data.artifacts.forEach(artifact => {
+          if (!shownRegions.has(artifact.region)) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+              <img src="${artifact.image}" alt="${artifact.title}" />
+              <h3>${artifact.title}</h3>
+              <p>${artifact.description}</p>
+              <a href="region.html?region=${encodeURIComponent(artifact.region)}" class="btn">Подробнее</a>
+            `;
+            container.appendChild(card);
+            shownRegions.add(artifact.region);
+          }
+        });
+      });
+  </script>
+</body>
+
+</html>

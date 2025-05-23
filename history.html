@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muras — История кыргызов</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    :root {
+      --main-bg: #f2c7a1;
+      --primary: #5c2d1f;
+      --accent: #8b4e36;
+      --text: #3b1d13;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text);
+      background: var(--main-bg);
+      transition: background 1s ease;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--primary);
+      color: white;
+      padding: 15px 30px;
+      flex-wrap: wrap;
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+      margin-right: 15px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+      transition: opacity 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 0.7;
+    }
+
+    main {
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .year-display {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      transition: all 0.5s ease;
+    }
+
+    .range-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      max-width: 600px;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      -webkit-appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff, var(--primary));
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      margin-top: -10px;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 6px;
+      background: linear-gradient(to right, var(--accent), var(--primary));
+      border-radius: 3px;
+    }
+
+    input[type="number"] {
+      width: 100px;
+      padding: 8px;
+      font-size: 1rem;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      color: var(--text);
+    }
+
+    .info-box {
+      max-width: 800px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateY(0);
+      transition: all 0.6s ease;
+    }
+
+    .info-box img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-content {
+      min-height: calc(100vh - 80px);
+      /* 100% высоты минус высота футера */
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-content">
+    <header>
+      <div class="logo-title">
+        <img src="assets/images/logo.jpg" alt="Muras" class="logo" />
+        <h1>Muras</h1>
+      </div>
+      <nav>
+        <a href="index.html">Главная</a>
+        <a href="region.html?region=Ош">Артефакты</a>
+        <a href="index.html">Карта</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="year-display" id="year-display">1991 год</div>
+      <div class="range-wrapper">
+        <input type="range" id="year-slider" min="-500" max="2025" value="1991" step="1">
+        <input type="number" id="year-input" min="-500" max="2025" value="1991">
+      </div>
+
+      <div class="info-box" id="info-box">
+        <p id="info-text">Информация будет показана здесь...</p>
+        <img id="info-image" src="" alt="" style="display: none;">
+      </div>
+    </main>
+  </div>
+
+
+  <footer>
+    &copy; 2025 Muras. Все права защищены.
+  </footer>
+  <script>
+    const slider = document.getElementById('year-slider');
+    const yearInput = document.getElementById('year-input');
+    const yearDisplay = document.getElementById('year-display');
+    const infoText = document.getElementById('info-text');
+    const infoImage = document.getElementById('info-image');
+    const body = document.body;
+
+    const periods = [
+      {
+        from: 1939,
+        to: 1945,
+        title: "Великая Отечественная война",
+        text: "Кыргызстан сыграл важную роль в тылу. Тысячи кыргызстанцев ушли на фронт, работали в промышленности и сельском хозяйстве.",
+        image: "assets/images/ww2.jpg",
+        bg: "#c4b59f"
+      },
+      {
+        from: 1991,
+        to: 2025,
+        title: "Независимость Кыргызстана",
+        text: "С 1991 года Кыргызстан стал суверенным государством, начались реформы, развитие культуры, образования и цифровизации.",
+        image: "assets/images/independence.jpg",
+        bg: "#e8dac5"
+      },
+      {
+        from: 1800,
+        to: 1917,
+        title: "Присоединение к Российской империи",
+        text: "В XIX веке кыргызские земли стали частью Российской империи. Были построены дороги, школы, начались социальные изменения.",
+        image: "assets/images/tsar.jpg",
+        bg: "#e1ccb3"
+      }
+    ];
+
+    function formatYear(y) {
+      return y < 0 ? `${-y} г. до н.э.` : `${y} год`;
+    }
+
+    function updateUI(year) {
+      slider.value = year;
+      yearInput.value = year;
+      yearDisplay.textContent = formatYear(year);
+
+      const match = periods.find(p => year >= p.from && year <= p.to);
+
+      if (match) {
+        infoText.textContent = `${match.title}: ${match.text}`;
+        infoImage.src = match.image;
+        infoImage.alt = match.title;
+        infoImage.style.display = 'block';
+        document.body.style.background = match.bg;
+      } else {
+        infoText.textContent = `Нет данных для ${formatYear(year)}.`;
+        infoImage.style.display = 'none';
+        document.body.style.background = '#f2c7a1';
+      }
+
+      // Плавное перемещение инфоблока
+      const infoBox = document.getElementById('info-box');
+      infoBox.style.transform = `translateY(${(year % 5) * 2}px)`;
+    }
+
+    slider.addEventListener('input', () => {
+      const year = parseInt(slider.value);
+      updateUI(year);
+    });
+
+    yearInput.addEventListener('change', () => {
+      let year = parseInt(yearInput.value);
+      if (isNaN(year)) return;
+      year = Math.max(-500, Math.min(2025, year));
+      updateUI(year);
+    });
+
+    // Начальная загрузка
+    updateUI(1991);
+  </script>
+</body>
+
+</html>

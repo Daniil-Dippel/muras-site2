@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muras — Артефакты региона</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2c7a1;
+      margin: 0;
+      padding: 0;
+      color: #3b1d13;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #5c2d1f;
+      color: white;
+      padding: 15px 30px;
+      flex-wrap: wrap;
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+      margin-right: 15px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+      transition: opacity 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 0.7;
+    }
+
+    main {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    .artifact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      animation: fadeIn 1s ease;
+    }
+
+    .artifact-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .artifact-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .artifact-image {
+      width: 100%;
+      object-fit: cover;
+      height: 200px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .artifact-content {
+      padding: 20px;
+    }
+
+    .artifact-content h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .artifact-content p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    model-viewer.artifact-model {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+
+    footer {
+      background: #5c2d1f;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      model-viewer.artifact-model {
+        height: 200px;
+      }
+    }
+
+    .artifact-image {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      transition: 0.3s ease;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* если картинка вертикальная — ставим max-height и auto width */
+    .artifact-image.vertical {
+      object-fit: contain;
+      height: auto;
+      max-height: 300px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .region-select-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 6px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    #region-select {
+      background-color: #f2c7a1;
+      color: #3b1d13;
+      font-weight: bold;
+      border: 2px solid #8b4e36;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='20,50 70,100 120,50' stroke='%238b4e36' stroke-width='15' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 18px;
+      padding-right: 36px;
+      
+    }
+
+    #region-select:hover {
+      background-color: #eec6a3;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo-title">
+      <img src="assets/images/logo.jpg" alt="Muras" class="logo" />
+      <h1>Muras</h1>
+    </div>
+    <nav style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;justify-content: center;">
+      <a href="index.html">Главная</a>
+      <a href="history.html">История</a>
+
+      <div class="region-select-wrapper">
+        <label for="region-select">Регион:</label>
+        <select id="region-select">
+          <option value="Чуй">Чуй</option>
+          <option value="Талас">Талас</option>
+          <option value="Нарын">Нарын</option>
+          <option value="Ош">Ош</option>
+          <option value="Баткен">Баткен</option>
+          <option value="Джалал-Абад">Джалал-Абад</option>
+          <option value="Иссык-Куль">Иссык-Куль</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <h2 id="region-title">Артефакты региона</h2>
+    <div class="artifact-grid" id="artifact-list">
+      <!-- Артефакты подставляются через JS -->
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Muras. Все права защищены.
+  </footer>
+
+  <script>
+    const select = document.getElementById('region-select');
+    const regionTitle = document.getElementById('region-title');
+    const container = document.getElementById('artifact-list');
+
+    // Получаем регион из URL или по умолчанию
+    const url = new URL(window.location);
+    const initialRegion = url.searchParams.get('region') || 'Чуй';
+    select.value = initialRegion;
+
+    function loadRegion(regionName) {
+      regionTitle.textContent = `Артефакты региона: ${regionName}`;
+      container.innerHTML = '';
+
+      fetch('js/data.json')
+        .then(res => res.json())
+        .then(data => {
+          const artifacts = data.artifacts.filter(a => a.region === regionName);
+
+          if (artifacts.length === 0) {
+            container.innerHTML = "<p>Нет артефактов для данного региона.</p>";
+            return;
+          }
+
+          artifacts.forEach(artifact => {
+            const card = document.createElement("div");
+            card.className = "artifact-card";
+
+            // Изображение
+            const img = document.createElement("img");
+            img.src = artifact.image;
+            img.alt = artifact.title;
+            img.className = "artifact-image";
+            img.onload = () => {
+              if (img.naturalHeight > img.naturalWidth) {
+                img.classList.add("vertical");
+              }
+            };
+            card.appendChild(img);
+
+            // Описание
+            const content = document.createElement("div");
+            content.className = "artifact-content";
+            content.innerHTML = `
+            <h3>${artifact.title}</h3>
+            <p>${artifact.description}</p>
+          `;
+            card.appendChild(content);
+
+            // 3D модель
+            if (artifact.model) {
+              const viewer = document.createElement("model-viewer");
+              viewer.className = "artifact-model";
+              viewer.setAttribute("src", artifact.model);
+              viewer.setAttribute("auto-rotate", "");
+              viewer.setAttribute("camera-controls", "");
+              viewer.setAttribute("alt", "3D модель");
+              card.appendChild(viewer);
+            }
+
+            container.appendChild(card);
+          });
+        });
+    }
+
+    // Обработка выбора региона
+    select.addEventListener('change', () => {
+      const region = select.value;
+      const newUrl = new URL(window.location);
+      newUrl.searchParams.set('region', region);
+      window.history.replaceState({}, '', newUrl);
+      loadRegion(region);
+    });
+
+    // Загружаем по умолчанию
+    loadRegion(initialRegion);
+  </script>
+
+</body>
+
+</html>
